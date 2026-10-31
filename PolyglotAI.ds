@@ -1,0 +1,1661 @@
+/*
+ * Author       : keerthana.c.2024.cse_raja601
+ * Generated on : 31-Oct-2026 13:58:42
+ * Version      : 1.0
+ */
+ application "PolyglotAI"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Feedback_Analysis
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Analysis_ID
+			(
+    			type = autonumber
+				displayname = "Analysis ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Feedback_Submissions1
+			(
+				type = picklist	
+				displayname = "Feedback Submissions"
+				values  = Feedback_Submissions.ID
+    			displayformat = [Feedback_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Detected_Languages
+			(
+    			type = text
+				displayname = "Detected Languages"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sentiment
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Positive","Neutral","Negative","Mixed","Uncertain"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Primary_Emotion
+			(
+				type = picklist
+				displayname = "Primary Emotion"
+				maxchar = 100
+				values = {"Joy","Anger","Sadness","Fear","Surprise","Disgust","Frustration","Trust","Other","Uncertain"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Possible_Sarcasm
+			(
+				type = picklist
+				displayname = "Possible Sarcasm"
+				maxchar = 100
+				values = {"Yes","No","Uncertain"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Main_Topic
+			(
+    			type = text
+				displayname = "Main Topic"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Feedback_Summary
+			(
+    			type = textarea
+				displayname = "Feedback Summary"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Urgency
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Low","Medium","High","Critical"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Confidence_Level
+			(
+				type = number
+				displayname = "Confidence Level"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Requires_Review
+			(
+				type = checkboxes	
+				displayname = "Requires Review"
+				values = {"Yes","No"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Analysis_Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Pending","Completed","Failed","Needs Review"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Google_Event_ID
+			(
+    			type = text
+				displayname = "Google Event ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Google_Event_Link
+			(
+    			type = url
+				displayname = "Google Event Link"
+				enable  linkname
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Feedback_Review
+		{
+			success message = "Feedback Review Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Feedback_Analysis1
+			(
+				type = picklist	
+				displayname = "Feedback Analysis"
+				values  = Feedback_Analysis.ID
+    			displayformat = [Analysis_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Review_Status
+			(
+				type = picklist
+				displayname = "Review Status"
+				maxchar = 100
+				values = {"Pending Review","Reviewed","Correction Required"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Corrected_Sentiment
+			(
+				type = picklist
+				displayname = "Corrected Sentiment"
+				maxchar = 100
+				values = {"Positive","Neutral","Negative","Mixed","Uncertain"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Corrected_Emotion
+			(
+				type = picklist
+				displayname = "Corrected Emotion"
+				maxchar = 100
+				values = {"Joy","Anger","Sadness","Fear","Surprise","Disgust","Frustration","Trust","Other","Uncertain"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sarcasm_Confirmed
+			(
+				type = picklist
+				displayname = "Sarcasm Confirmed"
+				maxchar = 100
+				values = {"Yes","No","Uncertain"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Reviewer_Notes
+			(
+    			type = textarea
+				displayname = "Reviewer Notes"
+				height = 100px
+    			description
+    			[
+    				type = help_text
+    			 	message = "Explain why the AI result was wrong or what context was missing"
+    			]
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Reviewed_By
+			(
+    			type = text
+				displayname = "Reviewed By"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Events
+			(
+				type = picklist	
+				datasource = google_calendar_events
+    			displayformat = [title]
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Feedback_Submissions
+		{
+			captcha = true
+			success message = "Thank You for your valuable feedback!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Feedback_ID
+			(
+    			type = autonumber
+				displayname = "Feedback ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Feedback_Category
+			(
+				type = picklist
+				displayname = "Feedback Category"
+				maxchar = 100
+				values = {"Product","Service","Delivery","Billing","Support","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Product_Service_Name
+			(
+    			type = text
+				displayname = "Business/Brand Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Prod
+			(
+    			type = text
+				displayname = "Product/Service Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Customer_Name
+			(
+    			type = name
+				displayname = "Customer Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Customer_Email
+			(
+    			type = email
+				displayname = "Customer Email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Rating
+			(
+				type = picklist
+				displayname = "Overall Rating"
+				maxchar = 100
+				values = {"1","2","3","4","5"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Your_Feedback
+			(
+    			type = richtext
+				displayname = "Your Feedback"
+				height = 200px
+				toolbar = enable
+				[
+					style, font-color, background-color, link, bullets-and-numbering, 
+					font-size : {1, 2, 3, 4, 5, 6, 7}
+				]
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Preffered_Languange
+			(
+				type = picklist
+				displayname = "Prefered Language"
+				maxchar = 100
+				values = {"Auto Detect","English","Tamil","Hindi","Telugu","Malayalam","Kannada","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Submission_Date
+			(
+    			type = datetime
+				displayname = "Submission Date"
+				timedisplayoptions = "hh:mm"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Consent_to_Analyse
+			(
+				type = checkboxes	
+				displayname = "Consent to Analyse"
+				values = {"Yes","No"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Feedback_Plain_Text
+			(
+    			type = textarea
+				height = 100px
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sentiment
+			(
+				type = picklist
+				maxchar = 100
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+						AI_Properties
+						(
+									fieldtype = SentimentAnalysis
+									basefield = Feedback_Plain_Text
+						)
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default custom Feedback_Submissions_Report
+		{
+			displayName = "Feedback_Submissions Report"
+			show all rows from Feedback_Submissions    
+			(
+				Feedback_ID as "Feedback ID"
+				Feedback_Category as "Feedback Category"
+				Product_Service_Name as "Business/Brand Name"
+				Rating as "Overall Rating"
+				Preffered_Languange as "Prefered Language"
+				Consent_to_Analyse as "Consent to Analyse"
+				Submission_Date as "Submission Date"
+				Customer_Name  as "Customer Name"
+				Prod as "Product/Service Name"
+				Customer_Email as "Customer Email"
+				Your_Feedback as "Your Feedback"
+				(
+					displayformat = plaintext
+				)
+				Modified_Time as "Modified Time"
+				Feedback_Plain_Text
+				Sentiment
+			)
+			sort by
+			(
+				Modified_Time descending
+			)
+			customlayouts
+			(
+				template
+	 			(
+	 	  			displayname="Custom Layout 1"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'theme:30'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'top'\n>\n	<pr \n			width='fill'\n		height='auto'\n>\n	<pc \n		padding = '0px'\n	bgColor = '#FFF'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'top'\n    	cornerRadius = '10px'\n>\n	<pr \n			width='fill'\n		height='auto'\n>\n	<pc \n	\n		width = '19%'\n>\n	<pr \n	>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#020C27'\n	size = '16px'\n	bold = 'true' \n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '23'\n    numOfLines = '1'\n\n\n\n\n    borderColor = '#020C27'\n    borderWidth = '0px'\n\n	  value = 'Rating'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#6B7280'\n	size = '13px'\n	type = 'field'\n\n\n    lineHeight = '18'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Feedback_Category'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n		paddingTop = '0px'\n	paddingLeft = '16px'\n	paddingRight = '16px'\n	paddingBottom = '8px'\n\n		width = '81%'\n>\n	<pr \n			width='100%'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	color = '#020C27'\n	size = '12px'\n	type = 'field'\n\n\n    lineHeight = '17'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Product_Service_Name'\n>\n</text>\n\n</pc><pc \n		paddingTop = '0px'\n	paddingLeft = '0px'\n	paddingBottom = '8px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '100%'\n		hAlign = 'left'\n		vAlign = 'middle'\n>\n	<pr \n			width='100%'\n		height='auto'\n>\n	<pc \n		paddingTop = '10px'\n	paddingLeft = '20px'\n	paddingRight = '20px'\n	paddingBottom = '10px'\n	bgColor = '#F3F3F3'\n\n    borderColor = '#E8ECF0'\n    borderWidth = '1px'\n		width = '33%'\n		hAlign = 'left'\n		vAlign = 'middle'\n    	cornerRadius = '4px'\n>\n	<text \n\n	margin = '0px'\n	color = '#020C27'\n	size = '12px'\n	type = 'field'\n\n\n    lineHeight = '17'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Prod'\n>\n</text>\n\n</pc><pc \n		paddingTop = '10px'\n	paddingLeft = '20px'\n	paddingRight = '20px'\n	paddingBottom = '10px'\n	bgColor = '#F3F3F3'\n\n    borderColor = '#E8ECF0'\n    borderWidth = '1px'\n		width = '32%'\n		hAlign = 'left'\n		vAlign = 'middle'\n    	cornerRadius = '4px'\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#020C27'\n	size = '12px'\n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '17'\n    numOfLines = '3'\n\n\n\n\n    borderColor = '#020C27'\n    borderWidth = '0px'\n\n	  value = 'Your_Feedback'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+				template
+	 			(
+	 	  			displayname="Custom Layout 2"
+	 	  			content="<panel  \n >\n	<pr \n			width='fill'\n>\n	<pc \n		padding = '0px'\n	bgColor = 'theme:45'\n\n		width = '100%'\n		hAlign = 'center'\n		vAlign = 'middle'\n>\n	<pr \n			width='fill'\n>\n	<pc \n		bgColor = '#FFF'\n\n		width = '100%'\n    	cornerRadius = '10px'\n>\n	<pr \n			width='fill'\n		height='fill'\n>\n	<pc \n		padding = '16px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '25%'\n		hAlign = 'left'\n		vAlign = 'top'\n    	cornerRadius = '0px'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n		paddingTop = '0px'\n	paddingLeft = '10px'\n	paddingRight = '0px'\n	paddingBottom = '0px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		hAlign = 'left'\n    	cornerRadius = '0px'\n>\n	<pr \n	>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#020C27'\n	size = '24px'\n	bold = 'true' \n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '32'\n    numOfLines = '1'\n\n\n\n\n    borderColor = '#020C27'\n    borderWidth = '0px'\n\n	  value = 'Rating'\n>\n</text>\n\n</pc>\n</pr><pr \n	>\n	<pc \n	\n>\n	<text \n\n	marginLeft = '0px'\n	marginRight = '0px' \n	marginBottom = '0px'\n	marginTop = '8px'\n	padding = '0px'\n	color = '#6B7280'\n	size = '14px'\n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '19'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Feedback_Category'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n		padding = '16px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '17%'\n		hAlign = 'left'\n		vAlign = 'middle'\n    	cornerRadius = '0px'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#020C27'\n	size = '15px'\n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '21'\n    numOfLines = '1'\n\n\n\n\n\n	  value = 'Product_Service_Name'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n		padding = '16px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '20%'\n		hAlign = 'left'\n		vAlign = 'middle'\n    	cornerRadius = '0px'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#020C27'\n	size = '15px'\n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '20'\n    numOfLines = '1'\n\n\n\n\n    borderColor = '#020C27'\n    borderWidth = '0px'\n\n	  value = 'Customer_Name'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n		padding = '16px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '20%'\n		hAlign = 'left'\n		vAlign = 'middle'\n    	cornerRadius = '0px'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	<text \n\n	margin = '0px'\n	padding = '0px'\n	color = '#020C27'\n	size = '15px'\n	type = 'field'\n\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n	cornerRadius = '0px'\n\n    lineHeight = '20'\n    numOfLines = '3'\n\n\n\n\n    borderColor = '#020C27'\n    borderWidth = '0px'\n\n	  value = 'Your_Feedback'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n		padding = '16px'\n	bgColor = 'transparent'\n        bgColorType = 'noFill'\n\n		width = '18%'\n		hAlign = 'right'\n		vAlign = 'middle'\n    	cornerRadius = '0px'\n>\n	<pr \n			width='auto'\n		height='auto'\n>\n	<pc \n	\n>\n	\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>"
+	    		)
+			)
+		}
+		default list Feedback_Analysis_Report
+		{
+			displayName = "Feedback_Analysis Report"
+			show all rows from Feedback_Analysis    
+			(
+				Feedback_Submissions1 as "Feedback Submissions"
+				Detected_Languages as "Detected Languages"
+				Sentiment
+				Primary_Emotion as "Primary Emotion"
+				Possible_Sarcasm as "Possible Sarcasm"
+				Main_Topic as "Main Topic"
+				Feedback_Summary as "Feedback Summary"
+				Urgency
+				Confidence_Level as "Confidence Level"
+				Requires_Review as "Requires Review"
+				Analysis_Status
+				Analysis_ID as "Analysis ID"
+				Google_Event_ID as "Google Event ID"
+				Google_Event_Link as "Google Event Link"
+			)
+		}
+		default list All_Feedback_Reviews
+		{
+			displayName = "All Feedback Reviews"
+			show all rows from Feedback_Review    
+			(
+				Feedback_Analysis1 as "Feedback Analysis"
+				Review_Status as "Review Status"
+				Corrected_Sentiment as "Corrected Sentiment"
+				Corrected_Emotion as "Corrected Emotion"
+				Sarcasm_Confirmed as "Sarcasm Confirmed"
+				Reviewer_Notes as "Reviewer Notes"
+				Reviewed_By as "Reviewed By"
+				Events
+			)
+		}
+		list Feedback_Review_Queue
+		{
+			displayName = "Feedback_Review_Queue"
+			show all rows from Feedback_Analysis  [Analysis_Status == "Needs Review"]  
+			(
+				Analysis_ID as "Analysis ID"
+				Feedback_Submissions1 as "Feedback Submissions"
+				Detected_Languages as "Detected Languages"
+				Sentiment
+				Primary_Emotion as "Primary Emotion"
+				Possible_Sarcasm as "Possible Sarcasm"
+				Main_Topic as "Main Topic"
+				Feedback_Summary as "Feedback Summary"
+				Urgency
+				Confidence_Level as "Confidence Level"
+				Requires_Review as "Requires Review"
+				Analysis_Status
+			)
+		}
+	}
+	pages
+	{
+		page PolyglotAI_Dashboard
+		{
+			displayname = "PolyglotAI_Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\twebDeviceConfig='{\"layout\":{\"displayType\":\"card\",\"design\":\"fluid\",\"style\":\"padding-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;\"}}'\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Board 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'theme:45'\n\n    borderColor = '#222326'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#FFFFFF'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t  value = 'PolyglotAI'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#222326'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#2D2D2D'\n    borderWidth = '0px'\n\n\t  value = 'CUSTOMER FEEDBACK INTELLIGENCE'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Board 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FAFAFA'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Board 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '24px'\n\tbgColor = '#3BBBC4'\n\n    borderColor = '#222326'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Total Feedback'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#1C1C1C'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#1C1C1C'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Feedback_Analysis.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '12px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Total Feedback Records'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Board 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '24px'\n\tbgColor = '#0ABB51'\n\n    borderColor = '#222326'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Positive'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'Sentiment == &quot;Positive&quot;'\n\t  value = 'thisapp.Feedback_Analysis.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '12px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Positive sentiment records'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Board 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '24px'\n\tbgColor = '#FFA9A3'\n\n    borderColor = '#222326'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Negative'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'Sentiment == &quot;Negative&quot;'\n\t  value = 'thisapp.Feedback_Analysis.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '12px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Negative sentiment records'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Board 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '24px'\n\tbgColor = '#FF965C'\n\n    borderColor = '#222326'\n    borderWidth = '0px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Needs Review'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'Analysis_Status == &quot;Needs Review&quot;'\n\t  value = 'thisapp.Feedback_Analysis.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '12px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Records needing review'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='34%'\n   \t>\n\t<board\n    \n\tbgColor = '#F7F7F7'\n        bgColorType = 'solid'\n\tpadding = '0px'\nelementName='Board 1'\n    layoutType = 'grid'\n        items = '1'\n    appLinkName = 'thisapp'\n    formLinkName = 'Feedback_Analysis'\n    rankBy = 'ID'\n    rankOrder = 'highestToLowest'\n    rankAggregate = 'count'\n    limit = '3'\n    groupBy = 'Sentiment'\n>\n<boardHeader>\n    <pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#000000'\n\tsize = '15px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#000000'\n    borderWidth = '0px'\n\n\t  value = 'Review Analysis'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</boardHeader>\n<boardLayout\n                paddingTop = '2px'\n                itemGap = '2px'\n>\n    <pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingLeft = '10px'\n\tpaddingRight = '10px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n    \tcornerRadius = '0px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\n\t\twidth = '70%'\n\t\thAlign = 'left'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '10px'\n\tcolor = '#000000'\n\tsize = '17px'\n\tbold = 'true' \n\ttype = 'boardData'\n\n\n    lineHeight = '23'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'groupedField'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'boardData'\n\n\n    lineHeight = '20'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'rankAggregate'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '10px'\n\n\t\twidth = '30%'\n\t\thAlign = 'right'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#000000'\n\tsize = '32px'\n\tbold = 'true' \n\ttype = 'boardData'\n\n\n    lineHeight = '43'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'rank'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</boardLayout>\n</board>\n</column><column\n   \t\t width='33%'\n   \t>\n\t<chart \n\telementName='Chart'\n\n\ttype = 'Pie'\n\txtitle = 'Sentiment'\n\tbgColor = '#FFBCC1'\n\ttheme = 'theme'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Feedback_Analysis'\n\txfield = 'Primary_Emotion'\n\tyfields = 'count:Analysis_ID'\n/>\n\n</column><column\n   \t\t width='33%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Feedback_Analysis_Report'\n\t\tallowPublicAccess = 'true'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+		 functions
+		 {
+			 Deluge
+			 {
+				 string Create_Feedback_Review_Event(string feedbackSummary, string urgency, string analysisId)
+                 {
+                 	eventData = Map();
+                 	eventData.put("summary","PolyglotAI Review - " + urgency);
+                 	eventData.put("description","Feedback requires review.\n\nSummary: " + feedbackSummary + "\nUrgency: " + urgency + "\nAnalysis ID: " + analysisId);
+                 	reviewDate = zoho.currentdate.addDay(1).toString("yyyy-MM-dd");
+                 	startMap = Map();
+                 	startMap.put("dateTime",reviewDate + "T10:00:00+05:30");
+                 	startMap.put("timeZone","Asia/Kolkata");
+                 	endMap = Map();
+                 	endMap.put("dateTime",reviewDate + "T10:15:00+05:30");
+                 	endMap.put("timeZone","Asia/Kolkata");
+                 	eventData.put("start",startMap);
+                 	eventData.put("end",endMap);
+                 	response = invokeurl
+                 	[
+                 		url :"https://www.googleapis.com/calendar/v3/calendars/primary/events"
+                 		type :POST
+                 		body:eventData.toString()
+                 		headers:{"Content-Type":"application/json"}
+                 		connection:"google_calendar_connection"
+                 	];
+                 	if(response.get("id") != null)
+                 	{
+                 		analysisRecord = Feedback_Analysis[ID == analysisId.toLong()];
+                 		analysisRecord.Google_Event_ID=response.get("id");
+                 		analysisRecord.Google_Event_Link=response.get("htmlLink");
+                 		return "SUCCESS: " + response.get("htmlLink");
+                 	}
+                 	else
+                 	{
+                 		return "FAILED: " + response.toString();
+                 	}
+                 }
+				 string Test_Google_Calendar_Event()
+                 {
+                 	eventData = Map();
+                 	eventData.put("summary","PolyglotAI - Calendar Integration Test");
+                 	eventData.put("description","Test event created from Zoho Creator.");
+                 	startMap = Map();
+                 	startMap.put("dateTime","2026-10-29T10:00:00+05:30");
+                 	startMap.put("timeZone","Asia/Kolkata");
+                 	endMap = Map();
+                 	endMap.put("dateTime","2026-10-29T10:15:00+05:30");
+                 	endMap.put("timeZone","Asia/Kolkata");
+                 	eventData.put("start",startMap);
+                 	eventData.put("end",endMap);
+                 	response = invokeurl
+                 	[
+                 		url :"https://www.googleapis.com/calendar/v3/calendars/primary/events"
+                 		type :POST
+                 		body:eventData.toString()
+                 		headers:{"Content-Type":"application/json"}
+                 		connection:"google_calendar_connection"
+                 	];
+                 	info response;
+                 	return response.toString();
+                 }
+			 }
+		 }
+
+
+		workflow
+		{
+		form
+		{
+			Analyse_Feedback_Submissi as "Analyse_Feedback_Submissions"
+			{
+				type =  form
+				form = Feedback_Submissions
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											apiKey = "your_gemini_api_key";
+										analysisRecordID = insert into Feedback_Analysis
+										[
+											Feedback_Submissions1=input.ID
+											Analysis_Status="Pending"
+											Added_User=zoho.loginuser
+										];
+										info "Analysis record ID: " + analysisRecordID;
+										try 
+										{
+											feedbackText = ifnull(input.Your_Feedback,"");
+											preferredLanguage = ifnull(input.Preffered_Languange,"Auto Detect");
+											if(preferredLanguage == "")
+											{
+												preferredLanguage = "Auto Detect";
+											}
+											promptText = "You are PolyglotAI, a multilingual customer feedback analysis system. Analyze the feedback carefully, including code-mixed text, sarcasm, contradictions, and unclear intent. Return ONLY valid JSON without markdown. Required keys: detected_languages (string), sentiment (Positive, Neutral, Negative, Mixed, or Uncertain), primary_emotion (Joy, Anger, Sadness, Fear, Surprise, Disgust, Frustration, Trust, Other, or Uncertain), possible_sarcasm (Yes, No, or Uncertain), main_topic (string), feedback_summary (string), urgency (Low, Medium, High, or Critical), confidence_level (number 0-100), requires_review (boolean). Flag requires_review=true if sarcasm is possible or uncertain, positive wording contradicts a negative experience, sentiment or emotion is unclear, or confidence is below 70. Do not treat enthusiastic positive words as proof of positive sentiment. Preferred language: " + preferredLanguage + ". Feedback: " + feedbackText;
+											requestBody = Map();
+											contentsList = List();
+											contentItem = Map();
+											partsList = List();
+											partItem = Map();
+											partItem.put("text",promptText);
+											partsList.add(partItem);
+											contentItem.put("parts",partsList);
+											contentsList.add(contentItem);
+											requestBody.put("contents",contentsList);
+											generationConfig = Map();
+											generationConfig.put("responseMimeType","application/json");
+											generationConfig.put("maxOutputTokens",1000);
+											requestBody.put("generationConfig",generationConfig);
+											headersMap = Map();
+											headersMap.put("Content-Type","application/json");
+											headersMap.put("x-goog-api-key",apiKey);
+											httpResponse = invokeurl
+											[
+												url :"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+												type :POST
+												body:requestBody.toString()
+												headers:headersMap
+												detailed:true
+											];
+											info "FULL HTTP RESPONSE:";
+											info httpResponse;
+											responseCode = httpResponse.get("responseCode");
+											responseText = ifnull(httpResponse.get("responseText"),"");
+											if(responseCode == 200 && responseText != "")
+											{
+												apiData = responseText.toMap();
+												candidates = apiData.get("candidates");
+												if(candidates != null && candidates.size() > 0)
+												{
+													candidate = candidates.get(0);
+													contentMap = candidate.get("content");
+													parts = contentMap.get("parts");
+													if(parts != null && parts.size() > 0)
+													{
+														analysisText = parts.get(0).get("text");
+														analysisData = analysisText.toMap();
+														detectedLanguages = ifnull(analysisData.get("detected_languages"),"Uncertain");
+														sentimentValue = ifnull(analysisData.get("sentiment"),"Uncertain");
+														emotionValue = ifnull(analysisData.get("primary_emotion"),"Uncertain");
+														sarcasmValue = ifnull(analysisData.get("possible_sarcasm"),"Uncertain");
+														topicValue = ifnull(analysisData.get("main_topic"),"Unspecified");
+														summaryValue = ifnull(analysisData.get("feedback_summary"),"No summary available");
+														urgencyValue = ifnull(analysisData.get("urgency"),"Medium");
+														confidenceValue = ifnull(analysisData.get("confidence_level"),0);
+														reviewValue = ifnull(analysisData.get("requires_review"),true);
+														feedbackLower = feedbackText.toLowerCase();
+														if(sarcasmValue == "Yes" || sarcasmValue == "Uncertain" || sentimentValue == "Mixed" || sentimentValue == "Uncertain" || confidenceValue < 70)
+														{
+															reviewValue = true;
+														}
+														if(feedbackLower.contains("fantastic") || feedbackLower.contains("excellent") || feedbackLower.contains("great") || feedbackLower.contains("amazing") || feedbackLower.contains("best experience") && feedbackLower.contains("broken") || feedbackLower.contains("terrible") || feedbackLower.contains("waited") || feedbackLower.contains("nobody answered") || feedbackLower.contains("never arrived") || feedbackLower.contains("worst"))
+														{
+															reviewValue = true;
+														}
+														analysisRecord = Feedback_Analysis[ID == analysisRecordID];
+														analysisReference = analysisRecord.Analysis_ID;
+														analysisRecord.Detected_Languages=detectedLanguages;
+														analysisRecord.Sentiment=sentimentValue;
+														analysisRecord.Primary_Emotion=emotionValue;
+														analysisRecord.Possible_Sarcasm=sarcasmValue;
+														analysisRecord.Main_Topic=topicValue;
+														analysisRecord.Feedback_Summary=summaryValue;
+														analysisRecord.Urgency=urgencyValue;
+														analysisRecord.Confidence_Level=confidenceValue;
+														if(reviewValue == true)
+														{
+															analysisRecord.Requires_Review={"Yes"};
+														}
+														else
+														{
+															analysisRecord.Requires_Review={"No"};
+														}
+														if(reviewValue == true)
+														{
+															analysisRecord.Analysis_Status="Needs Review";
+														}
+														else
+														{
+															analysisRecord.Analysis_Status="Completed";
+														}
+														if(reviewValue == true)
+														{
+															try 
+															{
+																calendarResult = thisapp.Create_Feedback_Review_Event(summaryValue,urgencyValue,analysisReference.toString());
+																info "Google Calendar result: " + calendarResult;
+															}					catch (calendarError)
+															{
+																info "Google Calendar event creation failed:";
+																info calendarError;
+															}
+														}
+														info "PolyglotAI analysis completed.";
+														alertNeeded = false;
+														if(reviewValue == true)
+														{
+															alertNeeded = true;
+														}
+														if(urgencyValue == "High" || urgencyValue == "Critical")
+														{
+															alertNeeded = true;
+														}
+														if(alertNeeded == true)
+														{
+															alertSubject = "PolyglotAI | Feedback Review Required";
+															alertMessage = "<html><body style='font-family:Arial,sans-serif;color:#243044;line-height:1.6;'>" + "<div style='background:#10243a;padding:22px;color:#ffffff;'>" + "<h2 style='margin:0;'>PolyglotAI</h2>" + "<p style='margin:5px 0 0;'>Customer Feedback Review Notification</p>" + "</div>" + "<div style='padding:24px;border:1px solid #dce3eb;'>" + "<p>Dear Administrator,</p>" + "<p>PolyglotAI has identified customer feedback that requires attention. Please review the details below.</p>" + "<h3 style='color:#10243a;'>Feedback Analysis Details</h3>" + "<table style='width:100%;border-collapse:collapse;'>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Sentiment</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + sentimentValue + "</td></tr>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Primary Emotion</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + emotionValue + "</td></tr>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Possible Sarcasm</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + sarcasmValue + "</td></tr>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Main Topic</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + topicValue + "</td></tr>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Urgency</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + urgencyValue + "</td></tr>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Confidence</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + confidenceValue + "%</td></tr>" + "<tr><td style='padding:9px;border-bottom:1px solid #e5e7eb;'><b>Human Review Required</b></td><td style='padding:9px;border-bottom:1px solid #e5e7eb;'>" + reviewValue + "</td></tr>" + "</table>" + "<h3 style='color:#10243a;'>Customer Feedback</h3>" + "<blockquote style='margin:0;padding:12px 16px;background:#f3f6fa;border-left:4px solid #0d9488;'>" + feedbackText + "</blockquote>" + "<h3 style='color:#10243a;'>AI-Generated Summary</h3>" + "<p>" + summaryValue + "</p>" + "<p><b>Required Action:</b> Please access PolyglotAI, open the Review Queue, and verify the analysis. Correct any classifications where necessary.</p>" + "<p style='margin-top:28px;'>Regards,<br><b>PolyglotAI Automated Monitoring System</b></p>" + "<hr style='border:0;border-top:1px solid #e5e7eb;'>" + "<p style='font-size:12px;color:#64748b;'>This is an automated notification. Please do not reply directly to this email.</p>" + "</div></body></html>";
+															sendmail
+															[
+																from :zoho.adminuserid
+																to :"polyglot@example.com"
+																subject :alertSubject
+																message :alertMessage
+															]
+															info "PolyglotAI email alert attempted.";
+														}
+													}
+													else
+													{
+														analysisRecord = Feedback_Analysis[ID == analysisRecordID];
+														analysisRecord.Analysis_Status="Failed";
+														analysisRecord.Feedback_Summary="Gemini returned no analysis text.";
+														info "Missing response parts:";
+														info responseText;
+													}
+												}
+												else
+												{
+													analysisRecord = Feedback_Analysis[ID == analysisRecordID];
+													analysisRecord.Analysis_Status="Failed";
+													analysisRecord.Feedback_Summary="Gemini returned no candidates.";
+													info responseText;
+												}
+											}
+											else
+											{
+												analysisRecord = Feedback_Analysis[ID == analysisRecordID];
+												analysisRecord.Analysis_Status="Failed";
+												analysisRecord.Feedback_Summary="Gemini request failed. HTTP status: " + responseCode;
+												info "GEMINI API ERROR:";
+												info responseText;
+											}
+										}catch (e)
+										{
+											info "WORKFLOW ERROR:";
+											info e;
+											info e.message;
+											info e.lineNo;
+											analysisRecord = Feedback_Analysis[ID == analysisRecordID];
+											analysisRecord.Analysis_Status="Failed";
+											analysisRecord.Feedback_Summary="Workflow error at line " + e.lineNo + ": " + e.message;
+										}
+						)
+					}
+				}
+
+			}
+			PolyglotAI_Human_Review_P as "PolyglotAI_Human_Review_Processor"
+			{
+				type =  form
+				form = Feedback_Review
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											analysisID = input.Feedback_Analysis1;
+										reviewStatus = ifnull(input.Review_Status,"");
+										if(analysisID != null)
+										{
+											analysisRecord = Feedback_Analysis[ID == analysisID];
+											if(analysisRecord.ID != null)
+											{
+												if(reviewStatus == "Reviewed")
+												{
+													analysisRecord.Analysis_Status="Completed";
+													analysisRecord.Requires_Review={"No"};
+												}
+												else if(reviewStatus == "Correction Required")
+												{
+													analysisRecord.Analysis_Status="Needs Review";
+													analysisRecord.Requires_Review={"Yes"};
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Feedback_plain_text as "Feedback plain text"
+			{
+				type =  form
+				form = Feedback_Submissions
+
+				record event = on add
+
+				on user input of Your_Feedback
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Feedback_Plain_Text = input.Your_Feedback;
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "POL"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	connections
+	{
+		google_calendar_connection
+		(
+			displayname = "Google Calendar Connection"
+			connector = google_calendar
+			connection mode = byoc
+			permissions = {"watch_acl","update_event","update_calendar","update_acl","patch_acl","get_event","get_calendar","get_all_events","get_all_calendars","get_all_acls","get_acl","delete_event","delete_calendar","delete_acl","create_event","create_calendar","create_acl"}
+		)
+	}
+	datasources
+	{
+		google_calendar_events
+		{
+			displayname = "Google Calendar Events"
+			module = events
+			connection = google_calendar_connection
+			created_time
+			(
+				type = datetime
+				displayname = "Created Time"
+				source field name = "created"
+				report only = true
+				display format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			)
+			description
+			(
+				type = textarea
+				displayname = "Description"
+				source field name = "description"
+			)
+			must have end_time
+			(
+				type = datetime
+				displayname = "End Time"
+				source field name = "end"
+				display format = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+			)
+			event_type
+			(
+				type = picklist
+				displayname = "Event Type"
+				source field name = "eventType"
+				values = {"birthday":"Birthday","default":"Default","focusTime":"Focus Time","fromGmail":"From Gmail","outOfOffice":"Out of Office","workingLocation":"Working Location"}
+			)
+			id
+			(
+				type = text
+				displayname = "ID"
+				source field name = "id"
+				primary = true
+				report only = true
+			)
+			is_locked
+			(
+				type = checkbox
+				displayname = "Is Locked"
+				source field name = "locked"
+				report only = true
+			)
+			location
+			(
+				type = text
+				displayname = "Location"
+				source field name = "location"
+			)
+			sequence_number
+			(
+				type = number
+				displayname = "Sequence Number"
+				source field name = "sequence"
+			)
+			must have start_time
+			(
+				type = datetime
+				displayname = "Start Time"
+				source field name = "start"
+				display format = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+			)
+			status
+			(
+				type = picklist
+				displayname = "Status"
+				source field name = "status"
+				values = {"cancelled":"Cancelled","confirmed":"Confirmed","tentative":"Tentative"}
+			)
+			must have title
+			(
+				type = text
+				displayname = "Title"
+				source field name = "summary"
+			)
+			transparency
+			(
+				type = picklist
+				displayname = "Transparency"
+				source field name = "transparency"
+				values = {"opaque":"Busy","transparent":"Free"}
+			)
+			updated_time
+			(
+				type = datetime
+				displayname = "Updated Time"
+				source field name = "updated"
+				report only = true
+				display format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			)
+			visibility
+			(
+				type = picklist
+				displayname = "Visibility"
+				source field name = "visibility"
+				values = {"confidential":"Confidential","default":"Default Visibility","private":"Private","public":"Public"}
+			)
+		}
+	}
+	web
+	{
+		forms
+		{
+			form Feedback_Analysis
+			{
+				label placement = left
+			}
+			form Feedback_Review
+			{
+				label placement = left
+			}
+			form Feedback_Submissions
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Feedback_Submissions_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = Custom
+		 				selectedlayout = "Custom Layout 2"
+	     				recordsperrow = 1
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Feedback_ID as "Feedback ID"
+								Feedback_Category as "Feedback Category"
+								Product_Service_Name as "Business/Brand Name"
+								Rating as "Overall Rating"
+								Preffered_Languange as "Prefered Language"
+								Consent_to_Analyse as "Consent to Analyse"
+								Submission_Date as "Submission Date"
+								Customer_Name as "Customer Name"
+								Prod as "Product/Service Name"
+								Customer_Email as "Customer Email"
+								Your_Feedback as "Your Feedback"
+								Feedback_Plain_Text
+								Sentiment
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Feedback_Analysis_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Feedback_Submissions1 as "Feedback Submissions"
+								Detected_Languages as "Detected Languages"
+								Sentiment
+								Primary_Emotion as "Primary Emotion"
+								Possible_Sarcasm as "Possible Sarcasm"
+								Main_Topic as "Main Topic"
+								Feedback_Summary as "Feedback Summary"
+								Google_Event_ID as "Google Event ID"
+								Google_Event_Link as "Google Event Link"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 2
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								Feedback_Submissions1 as "Feedback Submissions"
+								Detected_Languages as "Detected Languages"
+								Sentiment
+								Primary_Emotion as "Primary Emotion"
+								Possible_Sarcasm as "Possible Sarcasm"
+								Main_Topic as "Main Topic"
+								Feedback_Summary as "Feedback Summary"
+								Urgency
+								Confidence_Level as "Confidence Level"
+								Requires_Review as "Requires Review"
+								Analysis_Status
+								Analysis_ID as "Analysis ID"
+							)
+						)
+						datablock2
+						(
+		     				title = "Feedback Submissions"
+		     				related field = Feedback_Submissions1
+							fields
+							(
+								Feedback_ID as "Feedback ID"
+								Feedback_Category as "Feedback Category"
+								Product_Service_Name as "Business/Brand Name"
+								Prod as "Product/Service Name"
+								Customer_Name as "Customer Name"
+								Customer_Email as "Customer Email"
+								Rating as "Overall Rating"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Feedback_Reviews
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Feedback_Analysis1 as "Feedback Analysis"
+								Review_Status as "Review Status"
+								Corrected_Sentiment as "Corrected Sentiment"
+								Corrected_Emotion as "Corrected Emotion"
+								Sarcasm_Confirmed as "Sarcasm Confirmed"
+								Reviewer_Notes as "Reviewer Notes"
+								Reviewed_By as "Reviewed By"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Feedback_Analysis1 as "Feedback Analysis"
+								Review_Status as "Review Status"
+								Corrected_Sentiment as "Corrected Sentiment"
+								Corrected_Emotion as "Corrected Emotion"
+								Sarcasm_Confirmed as "Sarcasm Confirmed"
+								Reviewer_Notes as "Reviewer Notes"
+								Reviewed_By as "Reviewed By"
+								Events
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Feedback_Review_Queue
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Feedback_Submissions1 as "Feedback Submissions"
+								Detected_Languages as "Detected Languages"
+								Sentiment
+								Primary_Emotion as "Primary Emotion"
+								Possible_Sarcasm as "Possible Sarcasm"
+								Urgency
+								Confidence_Level as "Confidence Level"
+								Requires_Review as "Requires Review"
+								Analysis_Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Analysis_ID as "Analysis ID"
+								Feedback_Submissions1 as "Feedback Submissions"
+								Detected_Languages as "Detected Languages"
+								Sentiment
+								Primary_Emotion as "Primary Emotion"
+								Possible_Sarcasm as "Possible Sarcasm"
+								Main_Topic as "Main Topic"
+								Feedback_Summary as "Feedback Summary"
+								Urgency
+								Confidence_Level as "Confidence Level"
+								Requires_Review as "Requires Review"
+								Analysis_Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			unused
+			{
+				systemcomponent
+				{
+					type = localization
+					displayname = "Language Selection"
+					icon = "education-language"
+				}
+				systemcomponent
+				{
+					type = connection
+					displayname = "Integrations"
+					icon = "tech-2-connection"
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section PolyglotAI_Dashboard
+				{
+					displayname = "PolyglotAI_Dashboard"
+					icon = "tech-desktop"
+					page PolyglotAI_Dashboard
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Feedback_Submissions
+				{
+					displayname = "Feedback_Submissions"
+					icon = "tech-desktop"
+					form  Feedback_Submissions
+					{
+						icon = "tech-desktop"
+					}
+					report Feedback_Submissions_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section Feedback_Analysis
+				{
+					displayname = "Feedback_Analysis"
+					icon = "tech-desktop"
+					form  Feedback_Analysis
+					{
+						icon = "tech-desktop"
+					}
+					report Feedback_Analysis_Report
+					{
+						icon = "tech-desktop"
+					}
+					report Feedback_Review_Queue
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Feedback_Reviews
+				{
+					displayname = "Feedback Reviews"
+					icon = "education-board-51"
+					form  Feedback_Review
+					{
+						icon = "education-board-51"
+					}
+					report All_Feedback_Reviews
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			space Space_2
+			{
+				displayname = "Space 2"
+				icon = "objects-spaceship"
+
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			layout
+			{
+				theme = "theme_4"
+			}
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Feedback_Analysis
+			{
+				label placement = auto
+			}
+			form Feedback_Review
+			{
+				label placement = auto
+			}
+			form Feedback_Submissions
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "1"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Feedback_Analysis
+			{
+				label placement = auto
+			}
+			form Feedback_Review
+			{
+				label placement = auto
+			}
+			form Feedback_Submissions
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "1"
+			color options
+			{
+				color = darkgrey
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
